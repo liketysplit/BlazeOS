@@ -5,12 +5,18 @@
 #include "../libc/string.h"
 #include "timer.h"
 #include "ports.h"
+#include "../libc/staticp.h"
+
 
 isr_t interrupt_handlers[256];
 
 /* Can't do this with a loop because we need the address
  * of the function names */
 void isr_install() {
+
+    print_wait();
+    kprint("\nInstalling ISRs on the IDT gate");  
+
     set_idt_gate(0, (uint32_t)isr0);
     set_idt_gate(1, (uint32_t)isr1);
     set_idt_gate(2, (uint32_t)isr2);
@@ -45,6 +51,10 @@ void isr_install() {
     set_idt_gate(31, (uint32_t)isr31);
 
     // Remap the PIC
+
+    print_wait();    
+    kprint("\nMapping the PiC"); 
+
     port_byte_out(0x20, 0x11);
     port_byte_out(0xA0, 0x11);
     port_byte_out(0x21, 0x20);
@@ -57,6 +67,10 @@ void isr_install() {
     port_byte_out(0xA1, 0x0); 
 
     // Install the IRQs
+
+    print_wait();    
+    kprint("\nInstalling IRQs on the IDT gate");    
+
     set_idt_gate(32, (uint32_t)irq0);
     set_idt_gate(33, (uint32_t)irq1);
     set_idt_gate(34, (uint32_t)irq2);
@@ -75,6 +89,9 @@ void isr_install() {
     set_idt_gate(47, (uint32_t)irq15);
 
     set_idt(); // Load with ASM
+
+    print_wait();    
+    kprint("\nLoading all IDT gates");
 }
 
 /* To print the message which defines every exception */
@@ -146,8 +163,17 @@ void irq_handler(registers_t *r) {
 void irq_install() {
     /* Enable interruptions */
     asm volatile("sti");
+
+    print_wait(); 
+    kprint("\nEnabling Interupts");  
+
     /* IRQ0: timer */
     init_timer(50);
+
     /* IRQ1: keyboard */
+
+    print_wait(); 
+    kprint("\nLoading Keyboard");
+
     init_keyboard();
 }

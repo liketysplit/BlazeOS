@@ -6,4 +6,5 @@ void print_about();
 void print_help();
 void print_credits();
 void print_sources();
+void print_wait();
 #endif

@@ -8,14 +8,56 @@
 int debug =0;
 
 void kernel_main() {
+    setcolor('g');
+    clear_screen();
+
+    //Manually Display Boot Sequence
+    print_wait(); 
+    kprint("Loading from disk..."); 
+
+    print_wait(); 
+    kprint("\nNo disk found...");  
+
+    print_wait(); 
+    kprint("\nLoading from external media...");        
+    
+    print_wait();
+    kprint("\nNo suitable media found...");        
+     
+    print_wait(); 
+    kprint("\nSystem will attempt to load into memory...");
+    
+    print_wait(); 
+    kprint("\nStarting in 16bit real mode");
+
+    print_wait(); 
+    kprint("\nLoading Kernel into memory...");
+
+    print_wait(); 
+    kprint("\nKernal loaded");
+
+    print_wait(); 
+    kprint("\nLanded in 32bit protected mode");
+
+
+    //Call ISR & IQRS    
     isr_install();
     irq_install();
 
-     asm("int $2");
-     asm("int $3");
+    //  asm("int $2");
+    //  asm("int $3");
+    print_wait(); 
+    kprint("\nBooting in 3"); 
+
+    print_wait(); 
+    kprint("\nBooting in 2"); 
+
+    print_wait(); 
+    kprint("\nBooting in 1");  
+
+    print_wait(); 
+    clear_screen();       
     
-    setcolor('f');
-    //clear_screen();
     kprint("blazeos$ ");        
     
 }
