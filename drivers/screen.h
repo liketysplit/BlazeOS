@@ -4,20 +4,20 @@
 #define VIDEO_ADDRESS 0xb8000
 #define MAX_ROWS 25
 #define MAX_COLS 80
-#define WHITE_ON_BLACK 0x0f
-#define RED_ON_WHITE 0xf4
+//#define WHITE_ON_BLACK 0x0f
+//#define RED_ON_WHITE 0xf4
 
 #define Light_Green_ON_BLACK 0x0a
 #define Teal_ON_BLACK 0x0b
 #define Orange_ON_WHITE 0xfc
 #define Pink_ON_WHITE 0xfd
 #define Yellow_ON_BLACK 0x0e
-#define White_ON_BLACK 0x0f
+#define WHITE_ON_BLACK 0x0f
 
 #define Dark_Blue_ON_WHITE 0xf1
 #define Dark_Green_ON_WHITE 0xf2
 #define Cyan_ON_WHITE 0xf3
-#define Red_ON_WHITE 0xf4
+#define RED_ON_WHITE 0xf4
 #define Purple_ON_BLACK 0x05
 #define Brown_ON_WHITE 0xf6
 #define Light_Grey_ON_BLACK 0x07

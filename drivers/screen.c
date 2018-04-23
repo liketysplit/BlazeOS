@@ -11,7 +11,7 @@ int get_offset(int col, int row);
 int get_offset_row(int offset);
 int get_offset_col(int offset);
 
-char colorhex = 0x0f;
+char colorhex = WHITE_ON_BLACK;
 
 /**********************************************************
  * Public Kernel API functions                            *
@@ -71,13 +71,13 @@ void setcolor( char i ){
         case 'c':{ colorhex =  Orange_ON_WHITE;break;}
         case 'd':{ colorhex =  Pink_ON_WHITE;break;}
         case 'e':{ colorhex =  Yellow_ON_BLACK;break;}
-        case 'f':{ colorhex =  White_ON_BLACK;break;}
+        case 'f':{ colorhex =  WHITE_ON_BLACK;break;}
         case 'g':{ colorhex =  G;break;}
 
         case '1':{ colorhex =  Dark_Blue_ON_WHITE;break;}
         case '2':{ colorhex =  Dark_Green_ON_WHITE;break;}
         case '3':{ colorhex =  Cyan_ON_WHITE;break;}
-        case '4':{ colorhex =  Red_ON_WHITE;break;}
+        case '4':{ colorhex =  RED_ON_WHITE;break;}
         case '5':{ colorhex =  Purple_ON_BLACK;break;}
         case '6':{ colorhex =  Brown_ON_WHITE;break;}
         case '7':{ colorhex =  Light_Grey_ON_BLACK;break;}

@@ -11,11 +11,11 @@ void kernel_main() {
     isr_install();
     irq_install();
 
-    // asm("int $2");
-    // asm("int $3");
+     asm("int $2");
+     asm("int $3");
     
-
-    // clear_screen();
+    setcolor('f');
+    //clear_screen();
     kprint("blazeos$ ");        
     
 }
