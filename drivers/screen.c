@@ -11,7 +11,7 @@ int get_offset(int col, int row);
 int get_offset_row(int offset);
 int get_offset_col(int offset);
 
-char colorhex = WHITE_ON_BLACK;
+char colorhex = RED_ON_WHITE;
 
 /**********************************************************
  * Public Kernel API functions                            *

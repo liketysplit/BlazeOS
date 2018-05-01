@@ -8,7 +8,7 @@
 int debug =0;
 
 void kernel_main() {
-    setcolor('g');
+    setcolor('4');
     clear_screen();
 
     //Manually Display Boot Sequence
