@@ -11,12 +11,12 @@
 #define ENTER 0x1C
 #define LSHIFT 0x2A
 #define RSHIFT 0xAA
-
+#define SC_MAX 57
 
 static char key_buffer[256];
 int shiftPressed = 0;
 
-#define SC_MAX 57
+
 const char *sc_name[] = {   "ERROR", "Esc", "1", "2", "3", "4", "5", "6", "7", "8", 
                             "9", "0", "-", "=", "Backspace", "Tab", "Q", "W", "E", "R", 
                             "T", "Y", "U", "I", "O", "P", "[", "]", "Enter", "Lctrl", 
@@ -39,21 +39,28 @@ const char sc_asciii[] = {   '?', '?', '!', '@', '#', '$', '%', '^', '&', '*',
                             'M', '<', '>', '?', 'RSHIFT', '?', '?', ' '}; //8
 
 static void keyboard_callback(registers_t *regs) {
-    /* The PIC leaves us the scancode in port 0x60 */
+
+    //Data from the PiC
     uint8_t scancode = port_byte_in(0x60);
     
+    //Shift
     if(scancode == 170 || scancode == 182){
         shiftPressed = 0;
     }
+
+    //Ignore Cases
     if (scancode > SC_MAX) return;
 
+    //Backspace
     if (scancode == BACKSPACE) {
         backspace(key_buffer);
         kprint_backspace();
+
+    //Enter
     } else if (scancode == ENTER) {
         kprint("\n");
-        user_input(key_buffer); /* kernel-controlled function */
-        key_buffer[0] = '\0';
+        user_input(key_buffer); //Send User input to Kernel
+        key_buffer[0] = '\0'; //Clear the Buffer
     }else if (scancode == 0x2A || scancode == 0x36) {
         shiftPressed = 1;
     } else {
@@ -64,7 +71,6 @@ static void keyboard_callback(registers_t *regs) {
             letter = sc_ascii[(int)scancode];
         }
 
-        /* Remember that kprint only accepts char[] */
         char str[2] = {letter, '\0'};
         append(key_buffer, letter);
         kprint(str);

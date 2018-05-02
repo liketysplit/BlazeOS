@@ -1,9 +1,7 @@
 #include "string.h"
 #include <stdint.h>
 
-/**
- * K&R implementation
- */
+
 void int_to_ascii(int n, char str[]) {
     int i, sign;
     if ((sign = n) < 0) n = -n;
@@ -38,7 +36,7 @@ void hex_to_ascii(int n, char str[]) {
     else append(str, tmp + '0');
 }
 
-/* K&R */
+
 void reverse(char s[]) {
     int c, i, j;
     for (i = 0, j = strlen(s)-1; i < j; i++, j--) {
@@ -48,7 +46,7 @@ void reverse(char s[]) {
     }
 }
 
-/* K&R */
+
 int strlen(char s[]) {
     int i = 0;
     while (s[i] != '\0') ++i;
@@ -66,8 +64,6 @@ void backspace(char s[]) {
     s[len-1] = '\0';
 }
 
-/* K&R 
- * Returns <0 if s1<s2, 0 if s1==s2, >0 if s1>s2 */
 int strcmp(char s1[], char s2[]) {
     int i;
     to_lower(s1); 
@@ -102,7 +98,6 @@ char* substr(char* s, int p1, int p2){
     return temp;
 }
 
-//bitshifting
 void to_lower(char* s) {
     int i = 0;
 	for (i; i < strlen(s); i++)

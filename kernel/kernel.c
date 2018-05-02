@@ -5,9 +5,12 @@
 #include "../libc/mem.h"
 #include <stdint.h>
 #include "../libc/staticp.h"
+
 int debug =0;
 
 void kernel_main() {
+
+    //Manually Set Color TODO: Result of bug
     setcolor('4');
     clear_screen();
 
@@ -44,8 +47,6 @@ void kernel_main() {
     isr_install();
     irq_install();
 
-    //  asm("int $2");
-    //  asm("int $3");
     print_wait(); 
     kprint("\nBooting in 3"); 
 
@@ -62,6 +63,7 @@ void kernel_main() {
     
 }
 
+//long wait method needs rewriting outside of a loop
 void wait (){
     int i = 0, j = 0;
     for(i;i<2500000;i++){
@@ -71,14 +73,12 @@ void wait (){
     } 
 }
 
-
+//Handle User Input | Commands
 void user_input(char *input) {
     if (strcmp(input, "SHUTDOWN") == 0) {
-        // kprint("Stopping the CPU. Bye!\n");
         print_credits();
         asm volatile("hlt");
     } else if (strcmp(input, "PAGE") == 0) {
-        /* Lesson 22: Code to test kmalloc, the rest is unchanged */
         uint32_t phys_addr;
         uint32_t page = kmalloc(1000, 1, &phys_addr);
         char page_str[16] = "";

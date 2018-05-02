@@ -62,7 +62,7 @@ void print_sources(){
 
 }
 
-
+//Fast Wait Method
 void print_wait(){
     int i = 0, j = 0;
     for(i;i<1250000;i++){
@@ -70,34 +70,4 @@ void print_wait(){
 
         }
     } 
-}
-
-void print_logos(){
-    
-    kprint("\n              ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___");print_wait();
-    kprint("\n ");
-    kprint("\n                     (                   )              )    (   ");print_wait();
-    kprint("\n                (    )\\ )     (       ( /(           ( /(    )\\ )  ");print_wait();
-    kprint("\n              ( )\\  (()/(     )\\      )\\())  (       )\\())  (()/(  ");print_wait();
-    kprint("\n              )((_)  /(_)) ((((_)(   ((_)\\   )\\     ((_)\\    /(_)) ");print_wait();
-    kprint("\n             ((_)_  (_))    )\\ _ )\\   _((_) ((_)      ((_)  (_))   ");print_wait();
-    kprint("\n              | _ ) | |     (_)_\\(_) |_  /  | __|    / _ \\  / __| ");print_wait();
-    kprint("\n              | _ \\ | |__    / _ \\    / /   | _|    | (_) | \\__ \\  ");print_wait();
-    kprint("\n              |___/ |____|  /_/ \\_\\  /___|  |___|    \\___/  |___/  ");print_wait();
-    kprint("\n  ");                                               
-    kprint("\n              ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___");print_wait();
-
-        kprint("\n              ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___");print_wait();
-    kprint("\n ");
-    kprint("\n                     (                   )              )    (   ");print_wait();
-    kprint("\n                (    )\\ )     (       ( /(           ( /(    )\\ )  ");print_wait();
-    kprint("\n              ( )\\  (()/(     )\\      )\\())  (       )\\())  (()/(  ");print_wait();
-    kprint("\n              )((_)  /(_)) ((((_)(   ((_)\\   )\\     ((_)\\    /(_)) ");print_wait();
-    kprint("\n             ((_)_  (_))    )\\ _ )\\   _((_) ((_)      ((_)  (_))   ");print_wait();
-    kprint("\n              | _ ) | |     (_)_\\(_) |_  /  | __|    / _ \\  / __| ");print_wait();
-    kprint("\n              | _ \\ | |__    / _ \\    / /   | _|    | (_) | \\__ \\  ");print_wait();
-    kprint("\n              |___/ |____|  /_/ \\_\\  /___|  |___|    \\___/  |___/  ");print_wait();
-    kprint("\n  ");                                               
-    kprint("\n              ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___ ___");print_wait();
-
 }

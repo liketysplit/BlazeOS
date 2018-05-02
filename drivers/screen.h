@@ -48,20 +48,14 @@ F= White
 
 */
 
-/* Screen i/o ports */
 #define REG_SCREEN_CTRL 0x3d4
 #define REG_SCREEN_DATA 0x3d5
 
-/* Public kernel API */
+
 void clear_screen();
 void kprint_at(char *message, int col, int row);
 void kprint(char *message);
 void kprint_backspace();
-void setcolor(char i);
-// void print_logo();
-// void print_about();
-// void print_help();
-// void print_credits();
-// void print_sources();
+void setcolor(char);
 
 #endif

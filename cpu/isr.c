@@ -10,8 +10,6 @@
 
 isr_t interrupt_handlers[256];
 
-/* Can't do this with a loop because we need the address
- * of the function names */
 void isr_install() {
 
     print_wait();
@@ -94,7 +92,7 @@ void isr_install() {
     kprint("\nLoading all IDT gates");
 }
 
-/* To print the message which defines every exception */
+//Built In Error Execeptions
 char *exception_messages[] = {
     "Division By Zero",
     "Debug",
@@ -133,8 +131,9 @@ char *exception_messages[] = {
     "Reserved"
 };
 
+//Method to show interrupts as they come in
 void isr_handler(registers_t *r) {
-    kprint("received interrupt: ");
+    kprint("Received Interrupt: ");
     char s[3];
     int_to_ascii(r->int_no, s);
     kprint(s);
@@ -148,12 +147,10 @@ void register_interrupt_handler(uint8_t n, isr_t handler) {
 }
 
 void irq_handler(registers_t *r) {
-    /* After every interrupt we need to send an EOI to the PICs
-     * or they will not send another interrupt again */
-    if (r->int_no >= 40) port_byte_out(0xA0, 0x20); /* slave */
-    port_byte_out(0x20, 0x20); /* master */
+    //Send End of Input
+    if (r->int_no >= 40) port_byte_out(0xA0, 0x20);
+    port_byte_out(0x20, 0x20);
 
-    /* Handle the interrupt in a more modular way */
     if (interrupt_handlers[r->int_no] != 0) {
         isr_t handler = interrupt_handlers[r->int_no];
         handler(r);
@@ -161,16 +158,14 @@ void irq_handler(registers_t *r) {
 }
 
 void irq_install() {
-    /* Enable interruptions */
+
+    //Enable interrupts
     asm volatile("sti");
 
     print_wait(); 
     kprint("\nEnabling Interupts");  
 
-    /* IRQ0: timer */
     init_timer(50);
-
-    /* IRQ1: keyboard */
 
     print_wait(); 
     kprint("\nLoading Keyboard");
