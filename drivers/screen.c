@@ -3,31 +3,31 @@
 #include "../libc/mem.h"
 #include <stdint.h>
 
-int get_cursor_offset();
-void set_cursor_offset(int offset);
+int get_cursor_balance();
+void set_cursor_balance(int offset);
 int print_char(char c, int col, int row, char attr);
-int get_offset(int col, int row);
-int get_offset_row(int offset);
-int get_offset_col(int offset);
+int get_balance(int col, int row);
+int get_balance_row(int offset);
+int get_balance_col(int offset);
 
 char colorhex = RED_ON_WHITE;
 
 void blazePrint_at(char *message, int col, int row) {
     int offset;
     if (col >= 0 && row >= 0)
-        offset = get_offset(col, row);
+        offset = get_balance(col, row);
     else {
-        offset = get_cursor_offset();
-        row = get_offset_row(offset);
-        col = get_offset_col(offset);
+        offset = get_cursor_balance();
+        row = get_balance_row(offset);
+        col = get_balance_col(offset);
     }
 
     int i = 0;
     char* temp;
     while (message[i] != 0) {
         offset = print_char(message[i++], col, row, colorhex );
-        row = get_offset_row(offset);
-        col = get_offset_col(offset);
+        row = get_balance_row(offset);
+        col = get_balance_col(offset);
     }
 }
 
@@ -36,18 +36,18 @@ void blazePrint(char *message) {
 }
 
 void blazePrint_backspace() {
-    if(get_offset_col(get_cursor_offset()-2)>8){
-    int offset = get_cursor_offset()-2;
-    int row = get_offset_row(offset);
-    int col = get_offset_col(offset);
+    if(get_balance_col(get_cursor_balance()-2)>8){
+    int offset = get_cursor_balance()-2;
+    int row = get_balance_row(offset);
+    int col = get_balance_col(offset);
     print_char(0x08, col, row, colorhex);
     }
 }
 
 void system_backspace() {
-    int offset = get_cursor_offset()-2;
-    int row = get_offset_row(offset);
-    int col = get_offset_col(offset);
+    int offset = get_cursor_balance()-2;
+    int row = get_balance_row(offset);
+    int col = get_balance_col(offset);
     print_char(0x08, col, row, colorhex);
     
 }
@@ -85,16 +85,16 @@ int print_char(char c, int col, int row, char attr) {
     if (col >= MAX_COLS || row >= MAX_ROWS) {
         vidmem[2*(MAX_COLS)*(MAX_ROWS)-2] = 'E';
         vidmem[2*(MAX_COLS)*(MAX_ROWS)-1] = RED_ON_WHITE;
-        return get_offset(col, row);
+        return get_balance(col, row);
     }
 
     int offset;
-    if (col >= 0 && row >= 0) offset = get_offset(col, row);
-    else offset = get_cursor_offset();
+    if (col >= 0 && row >= 0) offset = get_balance(col, row);
+    else offset = get_cursor_balance();
 
     if (c == '\n') {
-        row = get_offset_row(offset);
-        offset = get_offset(0, row+1);
+        row = get_balance_row(offset);
+        offset = get_balance(0, row+1);
     //Backspace
     } else if (c == 0x08) { 
         vidmem[offset] = ' ';
@@ -109,13 +109,13 @@ int print_char(char c, int col, int row, char attr) {
     if (offset >= MAX_ROWS * MAX_COLS * 2) {
         int i;
         for (i = 1; i < MAX_ROWS; i++) 
-            memory_copy((uint8_t*)(get_offset(0, i) + VIDEO_ADDRESS),
-                        (uint8_t*)(get_offset(0, i-1) + VIDEO_ADDRESS),
+            memory_copy((uint8_t*)(get_balance(0, i) + VIDEO_ADDRESS),
+                        (uint8_t*)(get_balance(0, i-1) + VIDEO_ADDRESS),
                         MAX_COLS * 2);
 
         
     //TODO: Fix the issue where when you get to a new line, and type to the end of line it remembers the last character as well as system_backspace should be used because you can't delete anything before col 9
-        char *last_line = (char*) (get_offset(0, MAX_ROWS-1) + (uint8_t*) VIDEO_ADDRESS);
+        char *last_line = (char*) (get_balance(0, MAX_ROWS-1) + (uint8_t*) VIDEO_ADDRESS);
         for (i = 0; i < MAX_COLS; i++){
             system_backspace();
         }
@@ -124,11 +124,11 @@ int print_char(char c, int col, int row, char attr) {
         offset -= 2 * MAX_COLS;
     }
 
-    set_cursor_offset(offset);
+    set_cursor_balance(offset);
     return offset;
 }
 
-int get_cursor_offset() {
+int get_cursor_balance() {
     port_byte_out(REG_SCREEN_CTRL, 14);
     int offset = port_byte_in(REG_SCREEN_DATA) << 8;
     port_byte_out(REG_SCREEN_CTRL, 15);
@@ -136,7 +136,7 @@ int get_cursor_offset() {
     return offset * 2;
 }
 
-void set_cursor_offset(int offset) {
+void set_cursor_balance(int offset) {
     offset /= 2;
     port_byte_out(REG_SCREEN_CTRL, 14);
     port_byte_out(REG_SCREEN_DATA, (uint8_t)(offset >> 8));
@@ -153,9 +153,9 @@ void clear_screen() {
         screen[i*2] = ' ';
         screen[i*2+1] = colorhex;
     }
-    set_cursor_offset(get_offset(0, 0));
+    set_cursor_balance(get_balance(0, 0));
 }
 
-int get_offset(int col, int row) { return 2 * (row * MAX_COLS + col); }
-int get_offset_row(int offset) { return offset / (2 * MAX_COLS); }
-int get_offset_col(int offset) { return (offset - (get_offset_row(offset)*2*MAX_COLS))/2; }
+int get_balance(int col, int row) { return 2 * (row * MAX_COLS + col); }
+int get_balance_row(int offset) { return offset / (2 * MAX_COLS); }
+int get_balance_col(int offset) { return (offset - (get_balance_row(offset)*2*MAX_COLS))/2; }
