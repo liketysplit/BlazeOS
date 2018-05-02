@@ -12,7 +12,7 @@ int get_offset_col(int offset);
 
 char colorhex = RED_ON_WHITE;
 
-void kprint_at(char *message, int col, int row) {
+void blazePrint_at(char *message, int col, int row) {
     int offset;
     if (col >= 0 && row >= 0)
         offset = get_offset(col, row);
@@ -31,11 +31,11 @@ void kprint_at(char *message, int col, int row) {
     }
 }
 
-void kprint(char *message) {
-    kprint_at(message, -1, -1);
+void blazePrint(char *message) {
+    blazePrint_at(message, -1, -1);
 }
 
-void kprint_backspace() {
+void blazePrint_backspace() {
     if(get_offset_col(get_cursor_offset()-2)>8){
     int offset = get_cursor_offset()-2;
     int row = get_offset_row(offset);

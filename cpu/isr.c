@@ -13,7 +13,7 @@ isr_t interrupt_handlers[256];
 void isr_install() {
 
     print_wait();
-    kprint("\nInstalling ISRs on the IDT gate");  
+    blazePrint("\nInstalling ISRs on the IDT gate");  
 
     set_idt_gate(0, (uint32_t)isr0);
     set_idt_gate(1, (uint32_t)isr1);
@@ -51,7 +51,7 @@ void isr_install() {
     // Remap the PIC
 
     print_wait();    
-    kprint("\nMapping the PiC"); 
+    blazePrint("\nMapping the PiC"); 
 
     port_byte_out(0x20, 0x11);
     port_byte_out(0xA0, 0x11);
@@ -67,7 +67,7 @@ void isr_install() {
     // Install the IRQs
 
     print_wait();    
-    kprint("\nInstalling IRQs on the IDT gate");    
+    blazePrint("\nInstalling IRQs on the IDT gate");    
 
     set_idt_gate(32, (uint32_t)irq0);
     set_idt_gate(33, (uint32_t)irq1);
@@ -89,7 +89,7 @@ void isr_install() {
     set_idt(); // Load with ASM
 
     print_wait();    
-    kprint("\nLoading all IDT gates");
+    blazePrint("\nLoading all IDT gates");
 }
 
 //Built In Error Execeptions
@@ -133,13 +133,13 @@ char *exception_messages[] = {
 
 //Method to show interrupts as they come in
 void isr_handler(registers_t *r) {
-    kprint("Received Interrupt: ");
+    blazePrint("Received Interrupt: ");
     char s[3];
     int_to_ascii(r->int_no, s);
-    kprint(s);
-    kprint("\n");
-    kprint(exception_messages[r->int_no]);
-    kprint("\n");
+    blazePrint(s);
+    blazePrint("\n");
+    blazePrint(exception_messages[r->int_no]);
+    blazePrint("\n");
 }
 
 void register_interrupt_handler(uint8_t n, isr_t handler) {
@@ -163,12 +163,12 @@ void irq_install() {
     asm volatile("sti");
 
     print_wait(); 
-    kprint("\nEnabling Interupts");  
+    blazePrint("\nEnabling Interupts");  
 
     init_timer(50);
 
     print_wait(); 
-    kprint("\nLoading Keyboard");
+    blazePrint("\nLoading Keyboard");
 
     init_keyboard();
 }

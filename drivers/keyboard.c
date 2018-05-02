@@ -54,11 +54,11 @@ static void keyboard_callback(registers_t *regs) {
     //Backspace
     if (scancode == BACKSPACE) {
         backspace(key_buffer);
-        kprint_backspace();
+        blazePrint_backspace();
 
     //Enter
     } else if (scancode == ENTER) {
-        kprint("\n");
+        blazePrint("\n");
         user_input(key_buffer); //Send User input to Kernel
         key_buffer[0] = '\0'; //Clear the Buffer
     }else if (scancode == 0x2A || scancode == 0x36) {
@@ -73,7 +73,7 @@ static void keyboard_callback(registers_t *regs) {
 
         char str[2] = {letter, '\0'};
         append(key_buffer, letter);
-        kprint(str);
+        blazePrint(str);
         
     }
     UNUSED(regs);

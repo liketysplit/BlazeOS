@@ -16,31 +16,31 @@ void kernel_main() {
 
     //Manually Display Boot Sequence
     print_wait(); 
-    kprint("Loading from disk..."); 
+    blazePrint("Loading from disk..."); 
 
     print_wait(); 
-    kprint("\nNo disk found...");  
+    blazePrint("\nNo disk found...");  
 
     print_wait(); 
-    kprint("\nLoading from external media...");        
+    blazePrint("\nLoading from external media...");        
     
     print_wait();
-    kprint("\nNo suitable media found...");        
+    blazePrint("\nNo suitable media found...");        
      
     print_wait(); 
-    kprint("\nSystem will attempt to load into memory...");
+    blazePrint("\nSystem will attempt to load into memory...");
     
     print_wait(); 
-    kprint("\nStarting in 16bit real mode");
+    blazePrint("\nStarting in 16bit real mode");
 
     print_wait(); 
-    kprint("\nLoading Kernel into memory...");
+    blazePrint("\nLoading Kernel into memory...");
 
     print_wait(); 
-    kprint("\nKernal loaded");
+    blazePrint("\nKernal loaded");
 
     print_wait(); 
-    kprint("\nLanded in 32bit protected mode");
+    blazePrint("\nLanded in 32bit protected mode");
 
 
     //Call ISR & IQRS    
@@ -48,18 +48,18 @@ void kernel_main() {
     irq_install();
 
     print_wait(); 
-    kprint("\nBooting in 3"); 
+    blazePrint("\nBooting in 3"); 
 
     print_wait(); 
-    kprint("\nBooting in 2"); 
+    blazePrint("\nBooting in 2"); 
 
     print_wait(); 
-    kprint("\nBooting in 1");  
+    blazePrint("\nBooting in 1");  
 
     print_wait(); 
     clear_screen();       
     
-    kprint("blazeos$ ");        
+    blazePrint("blazeos$ ");        
     
 }
 
@@ -85,44 +85,44 @@ void user_input(char *input) {
         hex_to_ascii(page, page_str);
         char phys_str[16] = "";
         hex_to_ascii(phys_addr, phys_str);
-        kprint("Page: ");
-        kprint(page_str);
-        kprint(", physical address: ");
-        kprint(phys_str);
-        kprint("\nblazeos$ ");
+        blazePrint("Page: ");
+        blazePrint(page_str);
+        blazePrint(", physical address: ");
+        blazePrint(phys_str);
+        blazePrint("\nblazeos$ ");
     }else if (strcmp(input, "CLEAR") == 0) {
         clear_screen();
-        kprint("blazeos$ ");        
+        blazePrint("blazeos$ ");        
     }else if (strcmp(input, "ABOUT") == 0) {
         print_about();  
-        kprint("\nblazeos$ ");              
+        blazePrint("\nblazeos$ ");              
     }else if (strcmp(input, "HELP") == 0) {
         print_help();  
-        kprint("\nblazeos$ ");                
+        blazePrint("\nblazeos$ ");                
     }else if (strcmp(input, "CREDITS") == 0) {
         print_credits();  
-        kprint("\nblazeos$ ");               
+        blazePrint("\nblazeos$ ");               
     }else if (strcmp(input, "LOGO") == 0) {
         print_logo();  
-        kprint("\nblazeos$ ");               
+        blazePrint("\nblazeos$ ");               
     }else if (strcmp(input, "SOURCES") == 0) {
         print_sources();  
-        kprint("\nblazeos$ ");               
+        blazePrint("\nblazeos$ ");               
     }else if (strcmp(input, "TEST") == 0) {
-        kprint("\n---Before Test---");        
+        blazePrint("\n---Before Test---");        
             // wait();
             print_logo();
-        kprint("\n---After Test---\nblazeos$ ");        
+        blazePrint("\n---After Test---\nblazeos$ ");        
     }else if (strcmp(input, "DEBUG") == 0){
         if(debug==1){
             debug=0;
-            kprint("Debugging is toggled off");            
+            blazePrint("Debugging is toggled off");            
         }else if(debug==0){
             debug=1;
-            kprint("Debugging is toggled on");
+            blazePrint("Debugging is toggled on");
         }
 
-        kprint("\nblazeos$ ");
+        blazePrint("\nblazeos$ ");
     
     }else if (strstw(input, "SET") == 0){
         char* split = substr(input, 4, strlen(input));
@@ -189,15 +189,15 @@ void user_input(char *input) {
             
         }
 
-        kprint("blazeos$ ");
+        blazePrint("blazeos$ ");
     
     }else if (debug == 1){
-        kprint("You entered: ");
-        kprint(input);
-        kprint("\nblazeos$ ");
+        blazePrint("You entered: ");
+        blazePrint(input);
+        blazePrint("\nblazeos$ ");
         
     
     }else{
-        kprint("blazeos$ ");
+        blazePrint("blazeos$ ");
     }
 }

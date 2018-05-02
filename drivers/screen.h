@@ -53,9 +53,9 @@ F= White
 
 
 void clear_screen();
-void kprint_at(char *message, int col, int row);
-void kprint(char *message);
-void kprint_backspace();
+void blazePrint_at(char *message, int col, int row);
+void blazePrint(char *message);
+void blazePrint_backspace();
 void setcolor(char);
 
 #endif
